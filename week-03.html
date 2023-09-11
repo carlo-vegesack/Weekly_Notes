@@ -1,0 +1,306 @@
+<h1 id="week-3-introduction-to-algorithms">Week 3: Introduction to
+algorithms</h1>
+<p>This week we learn what the building blocks of algorithms are, we
+learn how to reason about algorithms and their correctness, and we get
+started on the first mandatory project (of which you can choose between
+two).</p>
+<h2 id="exercises">Exercises</h2>
+<p>In the exercises this week there are both algorithmic questions and
+programming questions. You do not need to implement any of the
+algorithms—it is more important that you manage to design the algorithms
+themselves—but I strongly encourage you to implement what you can, since
+you will learn a lot more from trying to tell the computer what your
+ideas are, than just telling yourself of a study-mate.</p>
+<h3 id="merging">Merging</h3>
+<p>Assume you have two sorted lists, <code>x</code> and <code>y</code>,
+and you want to combine them into a new sequence, <code>z</code>, that
+contains all the elements from <code>x</code> and all the elements from
+<code>y</code>, in sorted order. You can create <code>z</code> by
+<em>merging</em> <code>x</code> and <code>y</code> as follows: have an
+index, <code>i</code>, into <code>x</code> and another index,
+<code>j</code>, into <code>y</code>—both initially zero—and compare
+<code>x[i]</code> with <code>y[j]</code>. If
+<code>x[i] &lt; y[j]</code>, then append <code>x[i]</code> to
+<code>z</code> and increment <code>i</code> by one. Otherwise, append
+<code>y[j]</code> to <code>z</code> and increment <code>j</code>. If
+either <code>i</code> reaches the length of <code>x</code> or
+<code>j</code> reaches the end of <code>y</code>, simply copy the
+remainder of the other list to <code>z</code>.</p>
+<p><strong>Exercise:</strong> Argue why this approach creates the
+correct <code>z</code> list and why it terminates.</p>
+<p>Now you get to implement a merge (at least <a
+href="https://github.com/birc-ctib/merging">if you go to GitHub and get
+the exercise</a>).</p>
+<h3 id="below-or-above">Below or above</h3>
+<p>Here’s a game you can play with a friend: one of you think of a
+number between 1 and 20, both 1 and 20 included. The other has to figure
+out what that number is. He or she can guess at the number, and after
+guessing will be told if the guess is correct, too high, or is too low.
+Unless the guess is correct, the guesser must try again until the guess
+<em>is</em> correct.</p>
+<p>The game can be implemented like this (<a
+href="https://github.com/birc-ctib/guessing">you can get your own
+version to play with on GitHub</a>):</p>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>guess <span class="op">=</span> input_integer(<span class="st">&quot;Make a guess&gt; &quot;</span>)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="cf">while</span> guess <span class="op">!=</span> true_val:</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> guess <span class="op">&gt;</span> true_val:</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="st">&quot;Your guess is too high!&quot;</span>)</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span>:</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="st">&quot;Your guess is too low!&quot;</span>)</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>    guess <span class="op">=</span> input_integer(<span class="st">&quot;Make a guess&gt; &quot;</span>)</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">&quot;You got it!&quot;</span>)</span></code></pre></div>
+<p>In this game, the computer gets to pick the number and you need to
+guess it.</p>
+<p>Here are three different strategies you could use to guess the
+number:</p>
+<ol type="1">
+<li>Start with one. If it isn’t the right number, it has to be too
+low–there are no smaller numbers the right one could be. So if it isn’t
+one, you guess it is two. If it isn’t, you have once again guessed too
+low, so now you try three. You continue by incrementing your guess by
+one until you get the right answer.</li>
+<li>Alternatively, you start at 20. If the correct number is 20, great,
+you got it in one guess, but if it is not, your guess must be too
+high—it cannot possibly be too small. So, you try 19 instead, and this
+time you work your way down until you get the right answer.</li>
+<li>Tired of trying all numbers from one end to the other, you can pick
+this strategy: you start by guessing 10. If this is correct, you are
+done, if it is too high, you know the real number must be in the
+interval [1,9], and if the guess is too low, you know the right answer
+must be in the interval [11,20]—so for your next guess, you pick the
+middle of the interval it must be. With each new guess, you update the
+range where the real number can hide and choose the middle of the
+previous range.</li>
+</ol>
+<p><strong>Exercise:</strong> Prove that all three strategies terminate
+and with the correct answer, i.e. they are algorithms for solving this
+problem.</p>
+<p><strong>Exercise:</strong> Would you judge all three approaches to be
+equally efficient in finding the right number? If not, how would you
+order the three strategies such that the method most likely to get the
+correct number first is ranked highest, and the algorithm most likely to
+get the right number last is rated lowest. Justify your answer.</p>
+<p>In the GitHub code there is also a version of the program where you
+get to pick the number and the computer guesses.</p>
+<p>If you do not lie to the computer when it asks you about its guess
+compared to the number you are thinking of, the program implements the
+first strategy (going in sequence from 1 to 20).</p>
+<p><strong>Exercise:</strong> Implement the other two strategies and
+test them.</p>
+<p>When iterating from 20 and down, for the second strategy, you should
+always get the result <code>"high"</code> when you ask about your guess,
+so you can use a <code>for</code> loop and not worry about the actual
+result form <code>input_selection</code>. When you implement strategy
+number three, however, you need to keep track of a candidate interval
+with a lower bound, initially 1, and an upper bound, initially 20. If
+you guess too high, you should lower your upper bound to the value you
+just guessed minus one (no need to include the guess we know is too
+high). If you guess too low, you must increase your lower bound to the
+number you just guessed plus one. In both cases, after updating the
+interval, you should guess for the middle point in the new range. When
+you compute the middle value in your interval, you can use:</p>
+<div class="sourceCode" id="cb2"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>guess <span class="op">=</span> (upper_bound <span class="op">+</span> lower_bound) <span class="op">//</span> <span class="dv">2</span></span></code></pre></div>
+<h3 id="sieve-of-eratosthenes">Sieve of Eratosthenes</h3>
+<p>The <a
+href="https://en.wikipedia.org/wiki/Sieve_of_Eratosthenes">Sieve of
+Eratosthenes</a> is an early algorithm for computing all prime numbers
+less than some upper bound n. It works as follows: we start with a set
+of candidates for numbers that could be primes, and since we do not a
+priori know which numbers will be primes we start with all the natural
+numbers from two and up to n.</p>
+<div class="sourceCode" id="cb3"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>candidates <span class="op">=</span> <span class="bu">list</span>(<span class="bu">range</span>(<span class="dv">2</span>, n <span class="op">+</span> <span class="dv">1</span>))</span></code></pre></div>
+<p>We are going to figure out which are primes by elimination and put
+the primes in another list that is initially empty.</p>
+<div class="sourceCode" id="cb4"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>primes <span class="op">=</span> []</span></code></pre></div>
+<p>The trick now is to remove from the candidates the numbers we know
+are not primes. We will require the following loop invariants:</p>
+<ol type="1">
+<li>All numbers in <code>primes</code> are prime.</li>
+<li>No number in <code>candidates</code> can be divided by a number in
+<code>primes</code>.</li>
+<li>The smallest number in <code>candidates</code> is a prime.</li>
+</ol>
+<p><strong>Exercise:</strong> Prove that the invariants are true with
+the initial lists defined as above.</p>
+<p>We will now loop as long as there are candidates left. In the loop,
+we take the smallest number in the <code>candidates</code> list, which
+by the invariant must be a prime. Call it p. We then remove all
+candidates that are divisible by p and then add p to
+<code>primes</code>.</p>
+<p><strong>Exercise:</strong> Prove that the invariants are satisfied
+after these steps whenever they are satisfied before the steps.</p>
+<p><strong>Exercise:</strong> Prove that this algorithm terminates and
+is correct, i.e., that <code>primes</code> once the algorithm terminates
+contain all primes less than or equal to n. Correctness does not follow
+directly from the invariants so you might have to extend them.</p>
+<p><strong>Exercise:</strong> <a
+href="https://github.com/birc-ctib/sieve">Implement and test this
+algorithm.</a></p>
+<h3 id="longest-increasing-substrings">Longest increasing
+substrings</h3>
+<p>Assume you have a list of numbers, for example</p>
+<div class="sourceCode" id="cb5"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> [<span class="dv">12</span>, <span class="dv">45</span>, <span class="dv">32</span>, <span class="dv">65</span>, <span class="dv">78</span>, <span class="dv">23</span>, <span class="dv">35</span>, <span class="dv">45</span>, <span class="dv">57</span>]</span></code></pre></div>
+<p><strong>Exercise:</strong> Design an algorithm that finds the longest
+sub-sequence <code>x[i:j]</code> such that consecutive numbers are
+increasing, i.e. <code>x[k] &lt; x[k+1]</code> for all <code>k</code> in
+<code>range(i,j)</code> (or the left-most, if there are more than one
+with the same length).</p>
+<p>A brute-force approach is to explore all
+<code>0 &lt;= i &lt; j &lt; n</code> and check if <code>x[i:j]</code> is
+increasing, and then pick the longest of them. It is not particularly
+efficient, though, and there are smarter ways.</p>
+<p><em>Hint:</em> One way to approach this is to consider the longest
+sequence seen so far and the longest sequence up to a given index into
+<code>x</code>. From this, you can formalise invariants that should get
+you through.</p>
+<p>If you want to try implementing your algorithm you can <a
+href="https://github.com/birc-ctib/lis">start from here</a>.</p>
+<h3 id="computing-power-sets">Computing power-sets</h3>
+<p>The <em>power-set</em> P(S) of a set S is the set that contains all
+possible subsets of S. For example, if <code>S={a,b,c}</code>, then</p>
+<p><span
+class="math inline"><em>P</em>(<em>S</em>) = {∅, {<em>a</em>}, {<em>b</em>}, {<em>c</em>}, {<em>a</em>, <em>b</em>}, {<em>a</em>, <em>c</em>}, {<em>b</em>, <em>c</em>}, {<em>a</em>, <em>b</em>, <em>c</em>}}</span></p>
+<p><strong>Exercise:</strong> Assume that S is represented as a list.
+Design an algorithm that prints out all possible subsets of S. Prove
+that it terminates and is correct.</p>
+<p><em>Hint:</em> You can solve this problem by combining the numerical
+base algorithm with an observation about the binary representation of a
+number and a subset of S. We can represent any subset of S by the
+indices into the list representation of S. Given the indices, just pick
+out the elements at those indices. One way to represent a list of
+indices is as a binary sequence. The indices of the bits that are 1
+should be included, the indices where the bits are 0 should not. If you
+can generate all the binary vectors of length <code>n = len(S)</code>,
+then you have implicitly generated all subsets of S. You can get all
+these bit vectors by getting all the numbers from zero to <span
+class="math inline">2<sup><em>n</em></sup></span> and extracting the
+binary representation.</p>
+<p>If you <a href="https://github.com/birc-ctib/powerset">want to
+implement a solution based on this approach,</a> you don’t need to find
+your old code. You can already compute a string that works as a binary
+representation of a number.</p>
+<div class="sourceCode" id="cb6"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>bits <span class="op">=</span> <span class="bu">format</span>(i, <span class="st">&quot;b&quot;</span>).zfill(<span class="bu">len</span>(x))</span></code></pre></div>
+<p>The <code>format(i, "b")</code> converts <code>i</code> into binary
+and the <code>zfill</code> then makes sure that the string is
+<code>len(x)</code> long by padding with zeros.</p>
+<h3 id="longest-increasing-subsequences">Longest increasing
+subsequences</h3>
+<p>Notice that this problem has a different name than “longest
+increasing <em>substring</em>”; it is a slightly different problem.
+Assume, again, that you have a list of numbers. We want to find the
+longest sub-sequence of increasing numbers, but this time we are not
+looking for consecutive indices <code>i:j</code>, but a sequence of
+indices <code>i[0], i[1], …, i[m]</code> such that
+<code>i[k] &lt; i[k + 1]</code> and
+<code>x[i[k]] &lt; x[i[k+1]]</code>.</p>
+<p><strong>Exercise</strong> Design an <em>algorithm</em> for computing
+the longest (or a longest) such sequence of indices
+<code>i[0], i[1], …, i[m]</code>.</p>
+<p><em>Hint:</em> This problem is harder than the previous one, but you
+can brute force it by generating <em>all</em> subsequences and checking
+if the invariant is satisfied. This is a <em>very</em> inefficient
+approach, but you need to learn a little more about algorithms before we
+will see a more efficient solution (and it won’t be in this class,
+sorry).</p>
+<p>If you want to implement your solution, <a
+href="https://github.com/birc-ctib/liseq">here’s a template for
+you</a>.</p>
+<h3 id="changing-base">Changing base</h3>
+<p>When we write a number such as 123 we usually mean this to be in base
+10, that is, we implicitly understand this to be the number <span
+class="math inline">3 × 10<sup>0</sup> + 2 × 10<sup>1</sup> + 1 × 10<sup>2</sup></span>.
+Starting from the right and moving towards the left, each digit
+represents an increasing power of tens. The number <em>could</em> also
+be in octal, although then we would usually write it like <span
+class="math inline">123<sub>8</sub></span>. If the number were in octal,
+each digit would represent a power of eight, and the number should be
+understood as <span
+class="math inline">3 × 8<sup>0</sup> + 2 × 8<sup>1</sup> + 3 × 8<sup>2</sup></span>.</p>
+<p>Binary, octal and hexadecimal numbers—notation where the bases are 2,
+8, and 16, respectively—are frequently used in computer science as they
+capture the numbers you can put in one, three and four bits. The
+computer works with bits, so it naturally speaks binary. For us humans,
+binary is a pain because it requires long sequences of ones and zeros
+for even relatively small numbers, and it is hard for us to readily see
+if we have five or six or so zeroes or ones in a row.</p>
+<p>Using octal and hexadecimal is more comfortable for humans than
+binary, and you can map the digits in octal and hexadecimal to three and
+four-bit numbers, respectively. Modern computers are based on bytes (and
+multiples of bytes) where a byte is eight bits. Since a hexadecimal
+number is four bits, you can write any number that fits into a byte
+using two hexadecimal digits rather than eight binary digits. Octal
+numbers are less useful on modern computers, since two octal digits, six
+bits, are too small for a byte while three octal digits, nine bits, are
+too larger. Some older systems, however, were based on 12-bits numbers,
+and there you had four octal numbers. Now, octal numbers are merely used
+for historical reasons; on modern computers, hexadecimal numbers are
+better.</p>
+<p>Leaving computer science, base 12, called duodecimal, has been
+proposed as a better choice than base 10 for doing arithmetic because 12
+has more factors than 10 and this system would be simpler to do
+multiplication and division in. It is probably unlikely that this idea
+gets traction, but if it did, we would have to get used to converting
+old decimal numbers into duodecimal.</p>
+<p>In this exercise, we do not want to do arithmetic in different bases
+but want to write a function that prints an integer in different
+bases.</p>
+<p>When the base is higher than 10, we need a way to represent the
+digits from 10 and up. There are proposed special symbols for these, and
+these can be found in Unicode, but we will use letters, as is typically
+done for hexadecimal. We won’t go above base 16, so we can use this
+table to map a number to a digit up to that base:</p>
+<div class="sourceCode" id="cb7"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>digits <span class="op">=</span> {}</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">0</span>,<span class="dv">10</span>):</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>    digits[i] <span class="op">=</span> <span class="bu">str</span>(i)</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>digits[<span class="dv">10</span>] <span class="op">=</span> <span class="st">&#39;A&#39;</span></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>digits[<span class="dv">11</span>] <span class="op">=</span> <span class="st">&#39;B&#39;</span></span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>digits[<span class="dv">12</span>] <span class="op">=</span> <span class="st">&#39;C&#39;</span></span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>digits[<span class="dv">13</span>] <span class="op">=</span> <span class="st">&#39;D&#39;</span></span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>digits[<span class="dv">14</span>] <span class="op">=</span> <span class="st">&#39;E&#39;</span></span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>digits[<span class="dv">15</span>] <span class="op">=</span> <span class="st">&#39;F&#39;</span></span></code></pre></div>
+<p>To get the last digit in a number, in base <code>b</code>, we can
+take the division rest, the modulus, and map that using the
+<code>digits</code> table:</p>
+<div class="sourceCode" id="cb8"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>digits[i <span class="op">%</span> b]</span></code></pre></div>
+<p>Try it out.</p>
+<p>You can extract the base-b representation of a number by building a
+list of digits starting with the smallest. You can use
+<code>digits[i % b]</code> to get the last digit and remember that in a
+list. Then we need to move on to the next digit. Now, if the number we
+are processing is
+<code>n = b**0 * a[0] + b**1 * a[1] + b**2 * a[2] + … + b**n a[m]</code>,
+then <code>a[0]</code> is the remainder in a division by <code>b</code>
+and the digit we just extracted. Additionally, if // denotes integer
+division,
+<code>n // b = b**0 * a[1] + b**1 * a[2] + … b**(m-1) * a[m]</code>. So,
+we can get the next digit by first dividing n by b and then extract the
+smallest digit.</p>
+<p>If you iteratively extract the lowest digit and put it in a list and
+then reduce the number by dividing it by b, you should eventually have a
+list with all the digits, although in reverse order. If your list is
+named <code>lst</code>, you can reverse it using this expression
+<code>lst[::-1]</code>. The expression says that we want
+<code>lst</code> from the beginning to the end—the default values of a
+range when we do not provide anything—in steps of minus one.</p>
+<p><strong>Exercise:</strong> Flesh out an algorithm, based on the
+observations above, that can print any integer in any base <span
+class="math inline"><em>b</em> ≤ 16</span>. Show that your method
+terminates and outputs the correct string of digits.</p>
+<p>If you feel up to it, you can try implementing the algorithm (<a
+href="https://github.com/birc-ctib/changing-base">here’s a link to a
+GitHub exercise</a>).</p>
+<p>Be warned, though. While the algorithm is sound, there are special
+cases we didn’t consider. I know many people who use this problem as an
+interview question exactly because the number of special cases (that
+depend on programming language, number representations, phases of the
+moon and much more) makes it so interesting. But give it a go!</p>

@@ -1,0 +1,133 @@
+<h1 id="week-4-algorithmic-efficiency">Week 4: Algorithmic
+efficiency</h1>
+<p>By now, we have a good idea of what it means for a solution to be an
+algorithm—it solves the problem, and it actually finishes if we start it
+on a problem. We haven’t worried about the efficiency of algorithms,
+though. There isn’t much difference between an algorithm that never
+finishes and one that finishes billions of years in the future, so
+perhaps that was an oversight. We should amend that now.</p>
+<h2 id="exercises">Exercises</h2>
+<h3 id="counting-primitive-operations">Counting primitive
+operations</h3>
+<p><strong>Exercise:</strong> Consider this way of computing the mean of
+a sequence of numbers:</p>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>accumulator <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> n <span class="kw">in</span> numbers:</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a> accumulator <span class="op">+=</span> n</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>mean <span class="op">=</span> accumulator <span class="op">/</span> <span class="bu">len</span>(numbers)</span></code></pre></div>
+<p>Count how many primitive operations it takes. To do it correctly you
+need to distinguish between updating a variable and assigning a value to
+a new one. Updating the accumulator <code>accumulator += n</code>
+usually maps to a single operation on a CPU because it involves changing
+the value of a number that is most likely in a register. Assigning to a
+new variable, as in</p>
+<div class="sourceCode" id="cb2"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>mean <span class="op">=</span> accumulator <span class="op">/</span> <span class="bu">len</span>(numbers)</span></code></pre></div>
+<p>doesn’t update <code>accumulator</code> with a new value, rather it
+needs to compute a division, which is one operation (and it needs
+<code>len(numbers)</code> before it can do this, which is another
+operation), and then write the result in a new variable, which is an
+additional operation.</p>
+<p><strong>Exercise:</strong> Consider this alternative algorithm for
+computing the mean of a sequence of numbers:</p>
+<div class="sourceCode" id="cb3"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>accumulator <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>length <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> n <span class="kw">in</span> numbers:</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a> accumulator <span class="op">+=</span> n</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a> length <span class="op">+=</span> <span class="dv">1</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>mean <span class="op">=</span> accumulator <span class="op">/</span> length</span></code></pre></div>
+<p>How many operations are needed here? Is it more or less efficient
+than the previous algorithm?</p>
+<h3 id="guessing-game-complexity">Guessing-game complexity</h3>
+<p>Recall the guessing game from the previous chapter, where one player
+thinks a number between 1 and 20 and the other has to guess it. We had
+three strategies for the guesser:</p>
+<ol type="1">
+<li>Start with one. If it isn’t the right number, it has to be too
+low—there are no smaller numbers the right one could be. So if it isn’t
+one, you guess it is two. If it isn’t, you have once again guessed too
+low, so now you try three. You continue by incrementing your guess by
+one until you get the right answer.</li>
+<li>Alternatively, you start at 20. If the right number is 20, great,
+you got it in one guess, but if it is not, your guess must be too
+high—it cannot possibly be too small. So you try 19 instead, and this
+time you work your way down until you get the right answer.</li>
+<li>The third strategy is this: you start by guessing ten. If this is
+correct, you are done, if it is too high, you know the real number must
+be in the range [1, 9], and if the guess is too low, you know the right
+answer must be in the range [11, 20]—so for your next guess, you pick
+the middle of the range it must be. With each new guess, you update the
+interval where the real number can be hidden and pick the middle of the
+new range.</li>
+</ol>
+<p><strong>Exercise:</strong> Identify the best- and worst-case
+scenarios for each strategy and derive the best-case and worst-case time
+usage.</p>
+<h3 id="function-growth">Function growth</h3>
+<p>Consider the classes</p>
+<ol type="1">
+<li><span class="math inline"><em>O</em>(log<em>n</em>)</span>, <span
+class="math inline"><em>o</em>(log<em>n</em>)</span>, <span
+class="math inline"><em>Ω</em>(log<em>n</em>)</span> and <span
+class="math inline"><em>ω</em>(log<em>n</em>)</span></li>
+<li><span class="math inline"><em>O</em>(<em>n</em>)</span>, <span
+class="math inline"><em>o</em>(<em>n</em>)</span>, <span
+class="math inline"><em>Ω</em>(<em>n</em>)</span>, and <span
+class="math inline"><em>ω</em>(<em>n</em>)</span></li>
+<li><span class="math inline"><em>O</em>(<em>n</em><sup>2</sup>)</span>,
+<span class="math inline"><em>o</em>(<em>n</em><sup>2</sup>)</span>,
+<span class="math inline"><em>Ω</em>(<em>n</em><sup>2</sup>)</span>, and
+<span class="math inline"><em>ω</em>(<em>n</em><sup>2</sup>)</span></li>
+<li><span class="math inline"><em>O</em>(2<sup><em>n</em></sup>)</span>,
+<span class="math inline"><em>o</em>(2<sup><em>n</em></sup>)</span>,
+<span class="math inline"><em>Ω</em>(2<sup><em>n</em></sup>)</span>,
+<span class="math inline"><em>ω</em>(2<sup><em>n</em></sup>)</span></li>
+</ol>
+<p><strong>Exercise:</strong> For each of the functions below, determine
+which of the 16 classes it belongs in. Remember that the complexity
+classes overlap, so for example, if <span
+class="math inline"><em>f</em> ∈ <em>o</em>(<em>g</em>)</span> then
+<span class="math inline"><em>f</em> ∈ <em>O</em>(<em>g</em>)</span> as
+well, and if <span
+class="math inline"><em>f</em> ∈ <em>Θ</em>(<em>g</em>)</span> then
+<span class="math inline"><em>f</em> ∈ <em>O</em>(<em>g</em>)</span> as
+well as <span class="math inline"><em>Ω</em>(<em>g</em>)</span> (but
+<span class="math inline"><em>f</em> ∉ <em>o</em>(<em>g</em>)</span> and
+<span
+class="math inline"><em>f</em> ∉ <em>ω</em>(<em>g</em>)</span>).</p>
+<ol type="1">
+<li><span
+class="math inline"><em>f</em>(<em>n</em>) = 23 × <em>n</em></span></li>
+<li><span
+class="math inline"><em>f</em>(<em>n</em>) = 42 × <em>n</em><sup>2</sup> − 100 × <em>n</em></span></li>
+<li><span
+class="math inline"><em>f</em>(<em>n</em>) = <em>n</em>/log (<em>n</em>)</span></li>
+<li><span
+class="math inline"><em>f</em>(<em>n</em>) = log (<em>n</em>)/<em>n</em></span></li>
+<li><span
+class="math inline"><em>f</em>(<em>n</em>) = <em>n</em><sup>2</sup>/log (<em>n</em>)</span></li>
+<li><span
+class="math inline"><em>f</em>(<em>n</em>) = log (<em>n</em>) + log (<em>n</em>)/<em>n</em></span></li>
+<li><span
+class="math inline"><em>f</em>(<em>n</em>) = 5<sup><em>n</em></sup> − <em>n</em><sup>3</sup></span></li>
+<li><span
+class="math inline"><em>f</em>(<em>n</em>) = <em>n</em>!</span></li>
+<li><span
+class="math inline"><em>f</em>(<em>n</em>) = 2<sup><em>n</em></sup>/<em>n</em></span></li>
+<li><span
+class="math inline"><em>f</em>(<em>n</em>) = log (log(<em>n</em>))</span></li>
+</ol>
+<h3 id="sieve-of-eratosthenes">Sieve of Eratosthenes</h3>
+<p>Recall the Sieve of Eratosthenes from the previous chapter.</p>
+<p><strong>Exercise:</strong> Derive an upper bound for its running
+time.</p>
+<p><strong>Exercise:</strong> Is there a difference between its
+best-case and worst-case running time?</p>
+<h3 id="merging">Merging</h3>
+<p>Recall the <em>merging</em> algorithm from the previous chapter.</p>
+<p><strong>Exercise:</strong> Show that you can merge two sorted lists
+of size n and m, respectively, into one sorted list containing the
+elements from the two, in time <span
+class="math inline"><em>O</em>(<em>n</em>+<em>m</em>)</span>.</p>
