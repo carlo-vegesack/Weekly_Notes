@@ -56,7 +56,7 @@ Consider the classes
 4. $O(n^2)$, $o(n^2)$, $\Omega(n^2)$, and $\omega(n^2)$
 5. $O(2^n)$, $o(2^n)$, $\Omega(2^n)$, $\omega(2^n)$
 
-**Exercise:** For each of the functions below, determine which of the 16 classes it belongs in. Remember that the complexity classes overlap, so for example, if $f\in o(g)$ then $f\in O(g)$ as well, and if $f \in \Theta(g)$ then $f \in O(g)$ as well as $\Omega(g)$ (but $f\not\in o(g)$ and $f \not\in \omega(g)$).
+**Exercise:** For each of the functions below, determine which of the 16 classes it belongs in. Remember that the complexity classes overlap, so for example, if $f\in o(g)$ then $f\in O(g)$ as well, and if $f \in \Theta(g)$ then $f \in O(g)$ as well as $\Omega(g)$ (but $f\not\in o(g)$ and $f \not\in \omega(g)$ ).
 
 1. $f(n) = 23 \times n$
 2. $f(n) = 42 \times n^2 - 100 \times n$
