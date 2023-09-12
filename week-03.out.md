@@ -1,6 +1,6 @@
 # Week 3: Introduction to algorithms
 
-This week we learn what the building blocks of algorithms are, we learn how to reason about algorithms and their correctness, and we get started on the first mandatory project (of which you can choose between two).
+This week we learn what the building blocks of algorithms are, we learn how to reason about algorithms and their correctness.
 
 ## Exercises
 
