@@ -93,7 +93,7 @@ Assume you have a list of numbers, for example
 x = [12, 45, 32, 65, 78, 23, 35, 45, 57]
 ```
 
-**Exercise:** Design an algorithm that finds the longest sub-sequence `x[i:j]` such that consecutive numbers are increasing, i.e. `x[k] < x[k+1]` for all `k` in `range(i,j)` (or the left-most, if there are more than one with the same length).
+**Exercise:** Design an algorithm that finds the longest sub-string `x[i:j]` such that consecutive numbers are increasing, i.e. `x[k] < x[k+1]` for all `k` in `range(i,j)` (or the left-most, if there are more than one with the same length).
 
 A brute-force approach is to explore all `0 <= i < j < n` and check if `x[i:j]` is increasing, and then pick the longest of them. It is not particularly efficient, though, and there are smarter ways.
 
