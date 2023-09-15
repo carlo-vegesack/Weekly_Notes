@@ -4,7 +4,7 @@ This week we learn what the building blocks of algorithms are, we learn how to r
 
 ## Exercises
 
-In the exercises this week there are both algorithmic questions and programming questions. You do not need to implement any of the algorithms—it is more important that you manage to design the algorithms themselves—but I strongly encourage you to implement what you can, since you will learn a lot more from trying to tell the computer what your ideas are, than just telling yourself of a study-mate.
+In the exercises this week there are both algorithmic questions and programming questions. You do not need to implement any of the algorithms—it is more important that you manage to design the algorithms themselves—but I strongly encourage you to implement what you can, since you will learn a lot more from trying to tell the computer what your ideas are, than just telling yourself or a study-mate.
 
 ### Merging
 
