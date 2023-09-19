@@ -1,0 +1,72 @@
+<h1 id="week-5-searching-and-sorting">Week 5: Searching and Sorting</h1>
+<p>Searching and sorting seems like such primitive tasks that everything
+must have all been said and done about them already, right? Actually
+not. They are so fundamental that people keep inventing newer and better
+ways to use them in new and special ways. We can only scratch the
+surface of them this week, but scratch it we will!</p>
+<h2 id="exercises">Exercises</h2>
+<h3 id="binary-search">Binary search</h3>
+<p>We argued that the worst-case running time for the binary search is
+<span class="math inline"><em>O</em>(log<em>n</em>)</span>.</p>
+<p><strong>Exercise:</strong> What is the best-case running time, and
+what would the input data look like to achieve it?</p>
+<h3 id="selection-sort">Selection sort</h3>
+<p><strong>Exercise:</strong> Give an example input where selection sort
+is not stable.</p>
+<h3 id="insertion-sort">Insertion sort</h3>
+<p>We argued that the worst-case running time for insertion sort was
+<span class="math inline"><em>O</em>(<em>n</em><sup>2</sup>)</span> but
+the best-case running time was <span
+class="math inline"><em>O</em>(<em>n</em>)</span>.</p>
+<p><strong>Exercise:</strong> Describe what the input data,
+<code>numbers</code>, should look like to actually achieve the worst-
+and best-case running times.</p>
+<h3 id="bubble-sort">Bubble sort</h3>
+<p><strong>Exercise:</strong> Since <span
+class="math inline"><em>O</em><sub>1</sub></span> and <span
+class="math inline"><em>O</em><sub>2</sub></span> tells us that the last
+j elements are already the largest numbers and are already sorted, we do
+not need to have the inner loop iterate through these last j elements.
+How would you exploit this to improve the running time of bubble sort?
+The worst-case behaviour will not improve, but you can change the
+running time to about half of the one we have above. Show that this is
+the case.</p>
+<p><strong>Exercise:</strong> With cocktail sort, after running the
+outer loop j times, both the first j and the last j elements are in
+their final positions. Show that this is the case.</p>
+<p><strong>Exercise:</strong> Knowing that both the first and last j
+elements are already in their right position can be used to iterate over
+fewer elements in the inner loops. Modify the algorithm to exploit this.
+The worst case complexity will still be <span
+class="math inline"><em>O</em>(<em>n</em><sup>2</sup>)</span>, but you
+will make fewer comparisons. How much do you reduce the number of
+comparisons by?</p>
+<h3 id="comparison-sort-comparison">Comparison sort comparison</h3>
+<p><strong>Exercise:</strong> Insertion sort runs in <span
+class="math inline"><em>O</em>(<em>n</em><sup>2</sup>)</span> when the
+input is sorted in the reverse order, but can process sorted sequences
+in <span class="math inline"><em>O</em>(<em>n</em>)</span>. If we can
+recognise that the input is ordered in reverse, we could first reverse
+the sequence and then run the insertion sort. Show that we can reverse a
+sequence, in place, in <span
+class="math inline"><em>O</em>(<em>n</em>)</span>. Try to adapt
+insertion sort, so you first recognise consecutive runs of
+non-increasing elements, then reverse these before you run insertion
+sort on the result. Show that the worst-case running time is still <span
+class="math inline"><em>O</em>(<em>n</em><sup>2</sup>)</span>, but try
+to compare the modified algorithm with the traditional insertion sort to
+see if it works better in practice.</p>
+<h3 id="bucket-sort">Bucket sort</h3>
+<p><strong>Exercise:</strong> Argue why the inner loop in</p>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>result_keys, result_values <span class="op">=</span> [], []</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> key <span class="kw">in</span> <span class="bu">range</span>(m):</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a> <span class="cf">for</span> val <span class="kw">in</span> buckets[key]:</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>  result_keys.append(key) <span class="co">#This line</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>  result_values.append(val) <span class="co">#And this line</span></span></code></pre></div>
+<p>only executes n times.</p>
+<p><strong>Exercise:</strong> Argue why the bucket sort actually sorts
+the input.</p>
+<p>If you want to see a more efficient, and more traditional, bucket
+sort, then try <a href="https://github.com/birc-ctib/bucket-sort">this
+exercise</a>.</p>
