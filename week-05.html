@@ -22,6 +22,16 @@ class="math inline"><em>O</em>(<em>n</em>)</span>.</p>
 <code>numbers</code>, should look like to actually achieve the worst-
 and best-case running times.</p>
 <h3 id="bubble-sort">Bubble sort</h3>
+<p>Recall the invariants of the inner (<span
+class="math inline"><em>I</em></span>) and outer (<span
+class="math inline"><em>O</em><sub>#</sub></span>) loop of bubble sort
+from the book:</p>
+<p><span
+class="math display"><em>I</em> : ∀<em>k</em> ∈ [0, <em>i</em> − 1) : <em>x</em>[<em>k</em>] ≤ <em>x</em>[<em>i</em>−1]</span>
+<span
+class="math display"><em>O</em><sub>1</sub> : ∀<em>k</em> ∈ [<em>n</em> − <em>j</em>, <em>n</em> − 1) : <em>x</em>[<em>k</em>] ≤ <em>x</em>[<em>k</em>+1]</span>
+<span
+class="math display"><em>O</em><sub>2</sub> : ∀<em>k</em> ∈ [0, <em>n</em> − <em>j</em>) : <em>x</em>[<em>k</em>] ≤ <em>x</em>[<em>n</em>−<em>j</em>]</span></p>
 <p><strong>Exercise:</strong> Since <span
 class="math inline"><em>O</em><sub>1</sub></span> and <span
 class="math inline"><em>O</em><sub>2</sub></span> tells us that the last

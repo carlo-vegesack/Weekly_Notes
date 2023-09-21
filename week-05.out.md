@@ -22,6 +22,12 @@ We argued that the worst-case running time for insertion sort was $O(n^2)$ but t
 
 ### Bubble sort
 
+Recall the invariants of the inner ($I$) and outer ($O_\#$) loop of bubble sort from the book:
+
+$$I : \forall k \in [0,i-1):x[k] \le x[i-1]$$ 
+$$O_1 : \forall k \in [n-j,n-1):x[k] \le x[k+1]$$
+$$O_2 : \forall k \in [0,n-j):x[k] \le x[n-j]$$
+
 **Exercise:** Since $O_1$ and $O_2$ tells us that the last j elements are already the largest numbers and are already sorted, we do not need to have the inner loop iterate through these last j elements. How would you exploit this to improve the running time of bubble sort? The worst-case behaviour will not improve, but you can change the running time to about half of the one we have above. Show that this is the case.
 
 **Exercise:** With cocktail sort, after running the outer loop j times, both the first j and the last j elements are in their final positions. Show that this is the case.
