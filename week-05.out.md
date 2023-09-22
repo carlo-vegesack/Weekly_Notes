@@ -22,7 +22,7 @@ We argued that the worst-case running time for insertion sort was $O(n^2)$ but t
 
 ### Bubble sort
 
-Recall the invariants of the inner ($I$) and outer ($O_\#$) loop of bubble sort from the book:
+Recall the invariants of the inner ($I$) and outer ($O_n$) loop of bubble sort from the book:
 
 $$I : \forall k \in [0,i-1):x[k] \le x[i-1]$$ 
 $$O_1 : \forall k \in [n-j,n-1):x[k] \le x[k+1]$$
