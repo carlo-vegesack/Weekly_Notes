@@ -113,7 +113,7 @@ tcg
 
 ## Codon translation
 
-Codon translation is the process of translating a sequence of nucleotides (for example a DNA sequence) into a sequence of amino acids (the building blocks of proteins). A codon (at least for life as we know it) is a sequence of three nucleotides, and each codon corresponds to an amino acid. For example, the codon `ATG` corresponds to the amino acid `Methionine` (Met), and the codon `TAA` corresponds to the amino acid `Stop` (Stop). The codon `ATG` is also the start codon, and it is the codon that starts the translation process. Further explaination can be found in the `readme.md` file in the [template repository][w06-codon-ex].
+Codon translation is the process of translating a sequence of nucleotides (for example a DNA sequence) into a sequence of amino acids (the building blocks of proteins). A codon (at least for life as we know it) is a sequence of three nucleotides, and each codon corresponds to an amino acid. For example, the codon `ATG` corresponds to the amino acid `Methionine` (Met), and the codon `TAA` corresponds to the `Stop` (stopping the translation). Incidentally, the codon `ATG` is also the start codon, that starts the translation process. Further explaination can be found in the `readme.md` file in the [template repository][w06-codon-ex].
 
 **Exercise:** Complete the exercise described in the [template repository][w06-codon-ex] about codon translation.
 
