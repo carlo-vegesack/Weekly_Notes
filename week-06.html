@@ -1,0 +1,299 @@
+<h1 id="week-6-functions">Week 6: Functions</h1>
+<p>We have used functions already in exercises and projects, but we
+haven’t studied how they work in detail. That ends today!</p>
+<h2 id="exercises">Exercises</h2>
+<h3 id="doctests-and-pytest">DocTests and PyTest</h3>
+<p>This exercise isn’t an exercise as such, but rather a meta-exercise…
+it is time to learn a little bit about how you should test your
+code.</p>
+<p>The first way to test your code is what you have already been doing.
+You write some code, you run it, and then you check if the results make
+any sense. Sometimes they don’t, and you have to fiddle with it some
+more. Sometimes you are lucky and things seem to be working — for those
+few examples you tried it on, at least.</p>
+<p>This is a very manual way to test your code, and it will only ever
+test a few examples. You usually cannot test thoroughly if you have to
+type in cases yourself. Ideally, you want to write code that tests your
+functionality, since that can explore more of the problem domain than
+you can manually.</p>
+<p>Ideally, you want code for testing your code that is run every time
+you fiddle with it, so it can warn you if you have broken anything.</p>
+<p>There are multiple levels of testing, depending on how much you test
+and when you test, but the most basic is called <em>unit testing</em>
+and that is when you have (preferably automated) tests for all “units”.
+What a unit is varies depending on who you ask and what language you
+use, but in Python a unit would be something like a function or a
+class.</p>
+<p>Most languages have multiple systems for unit testing — it is such an
+important part of software development — and Python is no exception. We
+have used two kinds in the class so far: <code>doctest</code> and
+<code>pytest</code>. From now on, I want you to write your own tests
+using these.</p>
+<p>The <a
+href="https://docs.python.org/3/library/doctest.html"><code>doctest</code></a>
+module is the simplest. It uses documentation strings in functions to
+test if what the documentation says is also true. If behaviour of a
+function doesn’t match the documentation, then something is definitely
+wrong. If, in a function’s documentation string, you write
+<code>&gt;&gt;&gt;</code> and a function call</p>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> fact(<span class="dv">4</span>)</span></code></pre></div>
+<p>and then the expected output on the line after that, so</p>
+<div class="sourceCode" id="cb2"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> fact(<span class="dv">4</span>)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="dv">24</span></span></code></pre></div>
+<p>then <code>doctest</code> will check that this is what happens when
+you invoke it.</p>
+<p>You can run <code>doctest</code> on a file with</p>
+<div class="sourceCode" id="cb3"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;</span> python3 <span class="ex">-m</span> doctest file.py</span></code></pre></div>
+<p>Since <code>doctest</code> is tied to function documentation, and
+since no one wants to read documentation that contains pages and pages
+of test code, it is a little limited. It is great for making sure that
+the documented behaviour is also what happens, but for better tests you
+can use the <a href="https://docs.pytest.org/"><code>pytest</code></a>
+module. if it is not already installed, you can install it with</p>
+<div class="sourceCode" id="cb4"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;</span> pip <span class="fu">install</span> <span class="at">-U</span> pytest</span></code></pre></div>
+<p>The simplest way to use this — and we don’t need to make it
+complicated—is to write your tests in files whose names start with
+<code>test_</code> and in functions whose names start with
+<code>test_</code> as well.</p>
+<p>For example, we could write this function</p>
+<div class="sourceCode" id="cb5"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> test_fact():</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">assert</span> fact(<span class="dv">4</span>) <span class="op">==</span> <span class="dv">42</span></span></code></pre></div>
+<p>and put it in a file <code>test_fact.py</code>. If you put all your
+test files in a directory, say <code>testfolder</code>, you can run them
+all with</p>
+<div class="sourceCode" id="cb6"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;</span> python3 <span class="ex">-m</span> pytest testfolder</span></code></pre></div>
+<p>What I would like you to do from now on is to write
+<code>doctest</code> comments for the functions you write and preferably
+at least one test function for <code>pytest</code> for each function you
+write. You will find that most repositories in this course will have
+<code>test_</code> files in the <code>src/</code> directory that you
+should fill out with your own tests.</p>
+<h3 id="simple-functions">Simple functions</h3>
+<p>If you would like template code for this exercise, you can get it <a
+href="https://github.com/birc-ctib/simple-funcs">here</a>.</p>
+<p><strong>Exercise:</strong> Write a function that takes three numbers
+as arguments and return their product.</p>
+<p><strong>Exercise:</strong> Change the function so it only takes one
+argument, get another from the global scope, and assigns to a local
+variable for the last value.</p>
+<p><strong>Exercise:</strong> Write a function that takes two lists as
+its input and return the longest of the two.</p>
+<p><strong>Exercise:</strong> The distance between two points,
+<code>(x1,y1)</code> and <code>(x2,y2)</code> is <span
+class="math inline">$\sqrt{(x_1-x_2)^2 + (y_1-y_2)^2)}$</span>. It
+follows from <a
+href="https://en.wikipedia.org/wiki/Pythagorean_theorem">Pythagora’s
+Theorem</a> (as you should be able to see using a small drawing). Write
+a function that computes the distance between two functions. You can use
+the <code>sqrt()</code> function to get the square root, but you need to
+import it from the <code>math</code> module first:</p>
+<div class="sourceCode" id="cb7"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> math <span class="im">import</span> sqrt</span></code></pre></div>
+<p>Alternatively, you can simply use the <code>**</code> operator to get
+the square root. <code>x**2</code> is <span
+class="math inline"><em>x</em><sup>2</sup></span>, and
+<code>x**0.5</code> is the square root of <code>x</code>, <span
+class="math inline"><em>x</em><sup>1/2</sup></span> .</p>
+<h3 id="dna">DNA</h3>
+<h2 id="k-mer-exercises">k-mer exercises</h2>
+<p>If you want a template to work from for these execises, you can get
+it <a href="https://github.com/birc-ctib/kmer">here</a>.</p>
+<p>A k-mer is a substring of length k of some string s. For example, the
+k-mers for k = 3 of</p>
+<div class="sourceCode" id="cb8"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>agtagtcg</span></code></pre></div>
+<p>are</p>
+<div class="sourceCode" id="cb9"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>agt</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>gta</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>tag</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>agt</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>gtc</span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>tcg</span></code></pre></div>
+<p><strong>Exercise:</strong> Write a function, <code>kmers</code>,
+which returns a list of all k-mers in a given string for a specific
+k:</p>
+<p><strong>Exercise:</strong> Often, we’re only interested in unique
+k-mers. Write a function, <code>unique_kmers</code>, which only returns
+unique k-mers.</p>
+<p><em>Hint:</em> Can you use a <em>set</em> to make this easier? Sets
+will filter elements so they are all unique. Sets, however, do not
+preserve the order in which you insert them, so if you want that (and
+that is up to you), they might not be the right solution.
+<em>Dictionaries</em>, on the other hand, do preserve insertion order,
+so they might give you a way to do it.</p>
+<p><strong>Exercise:</strong> Now try to write a function that returns a
+list of all k-mers paired together with the number of occurrences of
+that k-mer in the string. Consider it a bonus if you return the list
+sorted according to the number of occurrences.</p>
+<h2 id="codon-translation">Codon translation</h2>
+<p>Codon translation is the process of translating a sequence of
+nucleotides (for example a DNA sequence) into a sequence of amino acids
+(the building blocks of proteins). A codon (at least for life as we know
+it) is a sequence of three nucleotides, and each codon corresponds to an
+amino acid. For example, the codon <code>ATG</code> corresponds to the
+amino acid <code>Methionine</code> (Met), and the codon <code>TAA</code>
+corresponds to the amino acid <code>Stop</code> (Stop). The codon
+<code>ATG</code> is also the start codon, and it is the codon that
+starts the translation process. Further explaination can be found in the
+<code>readme.md</code> file in the <a
+href="https://github.com/birc-ctib/codon-translation">template
+repository</a>.</p>
+<p><strong>Exercise:</strong> Complete the exercise described in the <a
+href="https://github.com/birc-ctib/codon-translation">template
+repository</a> about codon translation.</p>
+<h1 id="more-optional-exercises-on-functions">More
+<strong>OPTIONAL</strong> exercises on functions</h1>
+<p>There are many aspects about functions that we don’t cover in this
+course that might be nice to at least be familiar with. This section
+contains some exercises that you can do if you want to learn more about
+functions. <strong>They are not required for the course and we will not
+go through them in class</strong>, but they might be useful to you in
+the future.</p>
+<h3 id="exceptions">Exceptions</h3>
+<p><strong>Exercise:</strong> A DNA string consists of A, C, G, and T
+letters. Write a function that counts how many times each of the letters
+occur in a string, but raises an exception if there is a letter that
+isn’t one of these four.</p>
+<p><strong>Exercise:</strong> Consider this example, which I admit is a
+little complicated, but I will explain it below:</p>
+<div class="sourceCode" id="cb10"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> raises_error(x):</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a> <span class="cf">if</span> x <span class="op">&lt;</span> <span class="dv">0</span>:</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>  <span class="cf">raise</span> <span class="pp">Exception</span>(<span class="st">&quot;Negative&quot;</span>, x)</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a> <span class="cf">if</span> x <span class="op">&gt;</span> <span class="dv">0</span>:</span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>  <span class="cf">raise</span> <span class="pp">Exception</span>(<span class="st">&quot;Positive&quot;</span>, x)</span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a> <span class="cf">return</span> <span class="dv">42</span></span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> f(x):</span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a> <span class="cf">return</span> raises_error(x)</span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> g(x):</span>
+<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a> <span class="cf">try</span>:</span>
+<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a>  <span class="bu">print</span>(f(x))</span>
+<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a> <span class="cf">except</span> <span class="pp">Exception</span> <span class="im">as</span> e:</span>
+<span id="cb10-15"><a href="#cb10-15" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> e.args[<span class="dv">0</span>] <span class="op">==</span> <span class="st">&quot;Negative&quot;</span>:</span>
+<span id="cb10-16"><a href="#cb10-16" aria-hidden="true" tabindex="-1"></a>   <span class="bu">print</span>(<span class="st">&quot;g:&quot;</span>, e.args[<span class="dv">0</span>])</span>
+<span id="cb10-17"><a href="#cb10-17" aria-hidden="true" tabindex="-1"></a>   <span class="cf">return</span> f(<span class="dv">0</span>)</span>
+<span id="cb10-18"><a href="#cb10-18" aria-hidden="true" tabindex="-1"></a>  <span class="cf">else</span>:</span>
+<span id="cb10-19"><a href="#cb10-19" aria-hidden="true" tabindex="-1"></a>   <span class="cf">raise</span></span></code></pre></div>
+<p>We have a function, <code>raise_error()</code>, that will raise an
+exception if its input is either negative or positive, but return 42 if
+its input is 0. The function <code>f()</code> just calls
+<code>raise_error()</code> and cannot handle any exceptions. So if
+<code>raises_error()</code> throws an exception, then <code>f()</code>
+will simply propagate it to its caller. Function <code>g()</code> calls
+<code>f()</code>, but inside a <code>try/except</code>. It will print
+the result of <code>f(x)</code> if <code>f()</code> returns normally,
+but if <code>f()</code> propagates an exception, we jump to
+<code>g()</code>’s <code>except</code> block. Here, we name the
+exception <code>e</code>, and we check if it was a “Negative” error we
+got. If so, we print a message and call <code>f(0)</code> and returns
+the value (which will be 42). If <code>e</code> is a “Positive” error,
+we re-raise the exception using <code>raise</code> with no argument.</p>
+<p>Now, try running this code:</p>
+<div class="sourceCode" id="cb11"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="cf">try</span>:</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a> <span class="bu">print</span>(g(<span class="op">-</span><span class="dv">1</span>))</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a> <span class="bu">print</span>(g(<span class="dv">1</span>))</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="cf">except</span> <span class="pp">Exception</span> <span class="im">as</span> e:</span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a> <span class="bu">print</span>(<span class="st">&quot;Outer&quot;</span>, e.args[<span class="dv">0</span>])</span></code></pre></div>
+<p>The first time we call <code>g()</code>, it will get an exception
+from <code>raises_error()</code> through <code>f()</code>. It can handle
+this exception, so it prints “g: Negative” and returns
+<code>f(0)</code>, which is 42, and <code>print(g(-1))</code> prints 42.
+The second time we call <code>g()</code>, <code>raises_error()</code>
+raises an exception again, but this time <code>g()</code> cannot handle
+it, so it propagates it to the global <code>try/except</code>, where the
+<code>except</code> block handles the exception and prints “Outer
+Positive”.</p>
+<p><strong>Exercise:</strong> Go through this code carefully and make
+sure you understand what is happening. Make a drawing of the function
+calls for the two calls to <code>g()</code> and how exceptions propagate
+from <code>raises_error()</code>.</p>
+<h3 id="parameterised-insertion-sort">Parameterised insertion sort</h3>
+<p>Consider insertion sort:</p>
+<div class="sourceCode" id="cb12"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> insertion_sort(x):</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a> <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">1</span>,<span class="bu">len</span>(x)):</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>  j <span class="op">=</span> i</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>  <span class="cf">while</span> j <span class="op">&gt;</span> <span class="dv">0</span> <span class="kw">and</span> x[j<span class="op">-</span><span class="dv">1</span>] <span class="op">&gt;</span> x[j]:</span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>   x[j<span class="op">-</span><span class="dv">1</span>], x[j] <span class="op">=</span> x[j], x[j<span class="op">-</span><span class="dv">1</span>]</span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>   j <span class="op">-=</span> <span class="dv">1</span></span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a> <span class="cf">return</span> x</span></code></pre></div>
+<p>It sorts its input in increasing order. What if we want to sort in
+decreasing order as well? We can parameterise the comparison
+<code>x[j-1] &gt; x[j]</code>, and get what we want:</p>
+<div class="sourceCode" id="cb13"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> insertion_sort(x, greater_than):</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a> <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">1</span>,<span class="bu">len</span>(x)):</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>  j <span class="op">=</span> i</span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>  <span class="cf">while</span> j <span class="op">&gt;</span> <span class="dv">0</span> <span class="kw">and</span> greater_than(x[j<span class="op">-</span><span class="dv">1</span>], x[j]):</span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>   x[j<span class="op">-</span><span class="dv">1</span>], x[j] <span class="op">=</span> x[j], x[j<span class="op">-</span><span class="dv">1</span>]</span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>   j <span class="op">-=</span> <span class="dv">1</span></span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a> <span class="cf">return</span> x</span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> greater(x, y):</span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a> <span class="cf">return</span> x <span class="op">&gt;</span> y</span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a>insertion_sort(x, greater)</span>
+<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> smaller(x, y):</span>
+<span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a> <span class="cf">return</span> y <span class="op">&gt;</span> x</span>
+<span id="cb13-15"><a href="#cb13-15" aria-hidden="true" tabindex="-1"></a>insertion_sort(x, smaller)</span></code></pre></div>
+<p>We use a function to compare two elements, and we use two functions
+for the comparison, one that says that <code>x</code> is larger than
+<code>y</code>, so we will sort in increasing order, and one that says
+that <code>x</code> is smaller than <code>y</code>, and that will sort
+the elements in decreasing order.</p>
+<p><strong>Exercise:</strong> Go through the code and make sure you
+understand why it sorts in increasing and decreasing order.</p>
+<h3 id="accumulate-and-reduce">Accumulate and Reduce</h3>
+<p>There is a classic function in functional programming called
+<code>reduce()</code> or <code>fold()</code>. You will find it in
+practically any programming language that supports functional
+programming, since it is a generalisation of many other functions that
+you would have to implement explicitly otherwise.</p>
+<p>Consider a sequence <code>x = [x[0], x[1], ..., x[n-1]]</code> and a
+function <code>f</code> and define the sequence <code>y</code> by</p>
+<div class="sourceCode" id="cb14"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>y[<span class="dv">0</span>] <span class="op">=</span> x[<span class="dv">0</span>]</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>y[<span class="dv">1</span>] <span class="op">=</span> f(y[<span class="dv">0</span>],x[<span class="dv">1</span>])</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>y[<span class="dv">2</span>] <span class="op">=</span> f(y[<span class="dv">1</span>],x[<span class="dv">2</span>])</span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>y[<span class="dv">3</span>] <span class="op">=</span> f(y[<span class="dv">2</span>],x[<span class="dv">3</span>])</span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>...</span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>y[n<span class="op">-</span><span class="dv">1</span>] <span class="op">=</span> f(y[n<span class="op">-</span><span class="dv">2</span>],x[n<span class="op">-</span><span class="dv">1</span>])</span></code></pre></div>
+<p>i.e. <code>y[0]</code> is <code>x[0]</code> and every other
+<code>y</code> you get as <code>y[i] = f(y[i-1],x[i])</code>.</p>
+<p>If you “reduce” <code>x</code> with function <code>f</code> it means
+that you compute <code>y[n-1]</code> which is</p>
+<div class="sourceCode" id="cb15"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="bu">reduce</span>(f,x) <span class="op">==</span> f(f(f(...f(f(x[<span class="dv">0</span>],x[<span class="dv">1</span>]),x[<span class="dv">2</span>])...x[n<span class="op">-</span><span class="dv">1</span>])</span></code></pre></div>
+<p>If you want the intermediate values, so
+<code>y = [y[0], y[1], ..., y[n-1]]</code> you “accumulate”
+<code>x</code> with respect to <code>f</code></p>
+<div class="sourceCode" id="cb16"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>accumulate(f,x) <span class="op">==</span> [x[<span class="dv">0</span>], f(y[<span class="dv">0</span>],x[<span class="dv">1</span>]), ..., f(y[n<span class="op">-</span><span class="dv">2</span>],x[n<span class="op">-</span><span class="dv">1</span>])]</span></code></pre></div>
+<p>These two are (of course) already implemented in Python</p>
+<div class="sourceCode" id="cb17"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> itertools <span class="im">import</span> accumulate</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> functools <span class="im">import</span> <span class="bu">reduce</span></span></code></pre></div>
+<p>Those functions are more general than we will attempt here (and they
+are the ones you should use if you find yourself in need of this
+functionality in the future), but just for fun, let’s try to implement
+them.</p>
+<p>To simplify things, we will assume that <code>len(x) &gt;= 2</code>
+(since otherwise, we haven’t define what the result might be). Could you
+think of other alternatives?</p>
+<p><strong>Exercise:</strong> Implement the <code>reduce()</code>
+function and use it to compute the sum and product of a list of
+numbers.</p>
+<p><strong>Exercise:</strong> Implement the <code>accumulate()</code>
+function to see the intermediate results as well.</p>
+<p>You can start the exercise from this <a
+href="https://github.com/birc-ctib/reduce">template repository</a>.</p>
